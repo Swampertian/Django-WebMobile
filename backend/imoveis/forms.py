@@ -14,11 +14,9 @@ class ImoveisForm(forms.ModelForm):
             'quartos': forms.NumberInput(attrs={'class': 'form-control'}),
             'banheiros': forms.NumberInput(attrs={'class': 'form-control'}),
             'area': forms.NumberInput(attrs={'class': 'form-control'}),
-            'data_publicacao': forms.DateTimeInput(attrs={'class': 'form-control'}),
             'cep': forms.TextInput(attrs={'class': 'form-control'}),
             'imagem': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
         model = Imoveis
-        
-        fields = ['titulo', 'tipo', 'preco', 'endereco', 'cidade', 'estado', 'quartos', 'banheiros', 'area', 'data_publicacao', 'cep', 'imagem']
+        fields = ['titulo', 'tipo', 'preco', 'endereco', 'cidade', 'estado', 'quartos', 'banheiros', 'area', 'cep', 'imagem']
