@@ -1,0 +1,127 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="text-center text-lg-start">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center mb-0">Editar Imóvel</h3>
+                    </div>
+                    <div class="card-body py-5 px-md-5">
+                        
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            {% if form.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Erro no formulário:</strong>
+                                    {{ form.errors }}
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Título -->
+                            <div class="form-outline mb-4">
+                                {{ form.titulo }}
+                                <label class="form-label" for="{{ form.titulo.id_for_label }}">*Título do Imóvel</label>
+                            </div>
+                            
+                            <!-- Tipo de Imóvel -->
+                            <div class="form-outline mb-4">
+                                {{ form.tipo }}
+                                <label class="form-label" for="{{ form.tipo.id_for_label }}">*Tipo de Imóvel</label>
+                            </div>
+                            
+                            <!-- Preço -->
+                            <div class="form-outline mb-4">
+                                {{ form.preco }}
+                                <label class="form-label" for="{{ form.preco.id_for_label }}">*Preço (R$)</label>
+                            </div>
+                            
+                            <!-- Endereço -->
+                            <div class="form-outline mb-4">
+                                {{ form.endereco }}
+                                <label class="form-label" for="{{ form.endereco.id_for_label }}">*Endereço</label>
+                            </div>
+                            
+                            <!-- Cidade -->
+                            <div class="form-outline mb-4">
+                                {{ form.cidade }}
+                                <label class="form-label" for="{{ form.cidade.id_for_label }}">*Cidade</label>
+                            </div>
+                            
+                            <!-- Estado -->
+                            <div class="form-outline mb-4">
+                                {{ form.estado }}
+                                <label class="form-label" for="{{ form.estado.id_for_label }}">*Estado</label>
+                            </div>
+                            
+                            <!-- CEP -->
+                            <div class="form-outline mb-4">
+                                {{ form.cep }}
+                                <label class="form-label" for="{{ form.cep.id_for_label }}">CEP</label>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <!-- Quartos -->
+                                <div class="col-md-4">
+                                    <div class="form-outline mb-4">
+                                        {{ form.quartos }}
+                                        <label class="form-label" for="{{ form.quartos.id_for_label }}">Quartos</label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Banheiros -->
+                                <div class="col-md-4">
+                                    <div class="form-outline mb-4">
+                                        {{ form.banheiros }}
+                                        <label class="form-label" for="{{ form.banheiros.id_for_label }}">Banheiros</label>
+                                    </div>
+                                </div>
+                                
+                                <!-- Área -->
+                                <div class="col-md-4">
+                                    <div class="form-outline mb-4">
+                                        {{ form.area }}
+                                        <label class="form-label" for="{{ form.area.id_for_label }}">Área (m²)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Imagem atual -->
+                            {% if object.imagem %}
+                                <div class="mb-4">
+                                    <label class="form-label">Imagem atual:</label>
+                                    <div>
+                                        <img src="{{ object.imagem.url }}" alt="Imagem do imóvel" style="max-width: 200px; max-height: 150px;" class="img-thumbnail">
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Nova Imagem -->
+                            <div class="form-outline mb-4">
+                                {{ form.imagem }}
+                                <label class="form-label" for="{{ form.imagem.id_for_label }}">{% if object.imagem %}Nova Imagem (opcional){% else %}Imagem do Imóvel{% endif %}</label>
+                            </div>
+                            
+                            <!-- Botões -->
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <a href="{% url 'home' %}" class="btn btn-secondary btn-block">Voltar</a>
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary btn-block">Salvar Alterações</button>
+                                </div>
+                            </div>
+                        
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
