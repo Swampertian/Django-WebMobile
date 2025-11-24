@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from imoveis.models import Imovel
+from imoveis.models import Imoveis
 
 
 class ImovelSerializer(serializers.ModelSerializer):
@@ -12,7 +12,7 @@ class ImovelSerializer(serializers.ModelSerializer):
 
 
     class Meta:
-        model = Imovel
+        model = Imoveis
         fields = ['id', 'titulo', 'tipo', 'preco', 'cidade', 'estado', 'imagem']
 
     def get_titulo(self, obj):
