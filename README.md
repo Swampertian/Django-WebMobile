@@ -15,6 +15,8 @@ O repósitório contem:
 Stack: 
   - Django
   - Django Rest
+  - Angular com Ionic
+  - Bootstrap
 
 Arquitetura:
   - MVC (Com template engine)
