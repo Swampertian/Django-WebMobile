@@ -5,6 +5,11 @@ from .models import Imoveis
 from .forms import ImoveisForm
 from django.urls import reverse_lazy
 
+from rest_framework.generics import ListAPIView, DestroyAPIView
+from rest_framework. permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+
+from .serializers import ImovelSerializer
 class ListarImoveis(ListView,LoginRequiredMixin):
     model = Imoveis
     template_name = 'home.html'
@@ -40,4 +45,19 @@ class FotosImoveis(View):
         return render(request, 'imoveis/fotos_imovel.html', contexto)
     
 
-### APIs serão adicionadas abaixo
+### API
+
+class ImovelAPIListar(ListAPIView):
+    serializer_class = ImovelSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Imoveis.objects.all()
+    
+class ImovelAPIDeletar(DestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Imoveis.objects.all()
