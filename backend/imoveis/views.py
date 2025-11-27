@@ -5,7 +5,7 @@ from .models import Imoveis
 from .forms import ImoveisForm
 from django.urls import reverse_lazy
 
-from rest_framework.generics import ListAPIView, DestroyAPIView
+from rest_framework.generics import ListAPIView, DestroyAPIView, ListCreateAPIView
 from rest_framework. permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
@@ -14,14 +14,15 @@ class ListarImoveis(ListView,LoginRequiredMixin):
     model = Imoveis
     template_name = 'home.html'
     context_object_name = 'imoveis'
-    paginate_by = 9  # 9 imóveis por página (3x3 grid)
+    paginate_by = 9  
 
 class DetalhesImovel(LoginRequiredMixin, View):
-     def get(self,request,pk):
-        context={}
-        imovel = Imoveis.objects.get(id=pk)
-        context['imovel'] = imovel
-        return render(request,'imoveis/detalhes.html',context)
+    def get(self, request, pk):
+        imovel = Imoveis.objects.get(pk=pk)
+        contexto = {
+            'imovel': imovel
+        }
+        return render(request, 'imoveis/detalhes_imovel.html', contexto)
 class CadastrarImovel(LoginRequiredMixin, CreateView):
     model = Imoveis
     form_class = ImoveisForm
@@ -53,7 +54,7 @@ class FotosImoveis(View):
 
 ### API
 
-class ImovelAPIListar(ListAPIView):
+class ImovelAPIListar(ListCreateAPIView):
     serializer_class = ImovelSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

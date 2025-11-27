@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block Titulo %}
+	Detalhes do Imóvel - {{ imovel.titulo }}
+{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+	<div class="row mb-3">
+		<div class="col-12 d-flex justify-content-between align-items-center">
+			<h2 class="m-0">
+				<i class="fas fa-home"></i>
+				Detalhes do Imóvel
+			</h2>
+			<div class="d-flex gap-2">
+				<a href="{% url 'home' %}" class="btn btn-outline-secondary">
+					<i class="fas fa-arrow-left"></i> Voltar
+				</a>
+				<a href="{% url 'editar-imoveis' imovel.pk %}" class="btn btn-primary">
+					<i class="fas fa-edit"></i> Editar
+				</a>
+				<a href="{% url 'fotos-imoveis' imovel.pk %}" class="btn btn-outline-primary">
+					<i class="fas fa-images"></i> Fotos
+				</a>
+				<a href="{% url 'excluir-imoveis' imovel.pk %}" class="btn btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir este imóvel?')">
+					<i class="fas fa-trash"></i> Excluir
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="card shadow-lg details-card">
+		<div class="card-header details-header">
+			<div class="d-flex align-items-center justify-content-between">
+				<div class="d-flex align-items-center gap-3">
+					<h3 class="card-title m-0">{{ imovel.titulo }}</h3>
+					<span class="badge bg-primary">{{ imovel.get_tipo_display }}</span>
+				</div>
+				<div class="price-display">
+					R$ {{ imovel.preco|floatformat:2 }}
+				</div>
+			</div>
+		</div>
+
+		<div class="card-body">
+			<div class="row g-4">
+				<div class="col-lg-6">
+					<div class="image-wrapper">
+						{% if imovel.imagem %}
+							<img src="{{ imovel.imagem.url }}" alt="{{ imovel.titulo }}" class="img-fluid rounded">
+						{% else %}
+							<div class="no-image d-flex align-items-center justify-content-center">
+								<i class="fas fa-image fa-3x text-muted"></i>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="col-lg-6">
+					<div class="info-grid">
+						<div class="info-item">
+							<span class="info-label"><i class="fas fa-map-marker-alt"></i> Endereço</span>
+							<span class="info-value">{{ imovel.endereco }}</span>
+						</div>
+						<div class="info-item">
+							<span class="info-label"><i class="fas fa-city"></i> Cidade</span>
+							<span class="info-value">{{ imovel.cidade }}</span>
+						</div>
+						<div class="info-item">
+							<span class="info-label"><i class="fas fa-flag"></i> Estado</span>
+							<span class="info-value">{{ imovel.estado }}</span>
+						</div>
+						{% if imovel.cep %}
+						<div class="info-item">
+							<span class="info-label"><i class="fas fa-mail-bulk"></i> CEP</span>
+							<span class="info-value">{{ imovel.cep }}</span>
+						</div>
+						{% endif %}
+						{% if imovel.quartos %}
+						<div class="info-item">
+							<span class="info-label"><i class="fas fa-bed"></i> Quartos</span>
+							<span class="info-value">{{ imovel.quartos }}</span>
+						</div>
+						{% endif %}
+						{% if imovel.banheiros %}
+						<div class="info-item">
+							<span class="info-label"><i class="fas fa-shower"></i> Banheiros</span>
+							<span class="info-value">{{ imovel.banheiros }}</span>
+						</div>
+						{% endif %}
+						{% if imovel.area %}
+						<div class="info-item">
+							<span class="info-label"><i class="fas fa-ruler-combined"></i> Área</span>
+							<span class="info-value">{{ imovel.area }} m²</span>
+						</div>
+						{% endif %}
+						<div class="info-item">
+							<span class="info-label"><i class="fas fa-calendar-alt"></i> Publicado em</span>
+							<span class="info-value">{{ imovel.data_publicacao|date:"d/m/Y" }}</span>
+						</div>
+					</div>
+
+					<div class="mt-4">
+						<div class="alert alert-info mb-0">
+							<i class="fas fa-info-circle"></i>
+							Para mais fotos e detalhes, clique no botão "Fotos" no topo.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="mt-4 text-center">
+		<a href="{% url 'home' %}" class="btn btn-secondary">
+			<i class="fas fa-arrow-left"></i> Voltar para a lista
+		</a>
+	</div>
+</div>
+
+<!-- Estilos específicos da página -->
+<style>
+.details-card {
+	border: none;
+	border-radius: 16px;
+	overflow: hidden;
+}
+.details-header {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: #fff;
+}
+.details-header .card-title {
+	color: #fff;
+}
+.price-display {
+	font-size: 1.4rem;
+	font-weight: 700;
+}
+.image-wrapper {
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.no-image {
+	background: #f8f9fa;
+	height: 320px;
+	border: 1px dashed #dee2e6;
+	border-radius: 12px;
+}
+.info-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 14px 16px;
+}
+@media (max-width: 768px) {
+	.info-grid { grid-template-columns: 1fr; }
+}
+.info-item {
+	background: rgba(102, 126, 234, 0.06);
+	border: 1px solid rgba(102, 126, 234, 0.2);
+	border-radius: 12px;
+	padding: 12px 14px;
+}
+.info-label {
+	display: block;
+	font-size: 0.85rem;
+	color: #6c757d;
+}
+.info-value {
+	display: block;
+	font-size: 1rem;
+	font-weight: 600;
+	color: #212529;
+}
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}

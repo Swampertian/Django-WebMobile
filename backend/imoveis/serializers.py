@@ -9,7 +9,7 @@ class ImovelSerializer(serializers.ModelSerializer):
     preco = serializers.SerializerMethodField()
     cidade = serializers.SerializerMethodField()
     estado = serializers.SerializerMethodField()
-
+    imagem = serializers.ImageField()
 
     class Meta:
         model = Imoveis
@@ -25,3 +25,5 @@ class ImovelSerializer(serializers.ModelSerializer):
         return obj.preco
     def estado(self,obj):
         return obj.estado
+    def imagem(self,obj):
+        return obj.imagem

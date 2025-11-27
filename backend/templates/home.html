@@ -82,11 +82,15 @@
                     <!-- Imagem do imóvel -->
                     <div class="position-relative">
                         {% if imovel.imagem %}
-                            <img src="{{ imovel.imagem.url }}" class="card-img-top" alt="{{ imovel.titulo }}" style="height: 200px; object-fit: cover;">
+                            <a href="{% url 'detalhes-imoveis' imovel.pk %}" class="d-block">
+                                <img src="{{ imovel.imagem.url }}" class="card-img-top" alt="{{ imovel.titulo }}" style="height: 200px; object-fit: cover;">
+                            </a>
                         {% else %}
-                            <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
-                                <i class="fas fa-home fa-3x text-muted"></i>
-                            </div>
+                            <a href="{% url 'detalhes-imoveis' imovel.pk %}" class="d-block">
+                                <div class="card-img-top d-flex align-items-center justify-content-center bg-light" style="height: 200px;">
+                                    <i class="fas fa-home fa-3x text-muted"></i>
+                                </div>
+                            </a>
                         {% endif %}
                         
                         <!-- Badge do tipo -->
@@ -104,7 +108,11 @@
 
                     <!-- Conteúdo do card -->
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-truncate">{{ imovel.titulo }}</h5>
+                        <h5 class="card-title text-truncate">
+                            <a href="{% url 'detalhes-imoveis' imovel.pk %}" class="text-decoration-none text-dark">
+                                {{ imovel.titulo }}
+                            </a>
+                        </h5>
                         
                         <!-- Preço -->
                         <h4 class="text-success mb-2">
@@ -148,12 +156,17 @@
                         <!-- Botões de ação -->
                         <div class="mt-auto">
                             <div class="row g-2">
-                                <div class="col-6">
+                                <div class="col-4">
+                                    <a href="{% url 'detalhes-imoveis' imovel.pk %}" class="btn btn-primary btn-sm w-100">
+                                        <i class="fas fa-eye"></i> Detalhes
+                                    </a>
+                                </div>
+                                <div class="col-4">
                                     <a href="{% url 'editar-imoveis' imovel.pk %}" class="btn btn-outline-primary btn-sm w-100">
                                         <i class="fas fa-edit"></i> Editar
                                     </a>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <a href="{% url 'excluir-imoveis' imovel.pk %}" class="btn btn-outline-danger btn-sm w-100" 
                                        onclick="return confirm('Tem certeza que deseja excluir este imóvel?')">
                                         <i class="fas fa-trash"></i> Excluir

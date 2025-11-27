@@ -10,6 +10,7 @@ urlpatterns = [
     path('editar/<int:pk>/',login_required(EditarImovel.as_view(),login_url='login'), name='editar-imoveis'),
     path('excluir/<int:pk>/',login_required(ExcluirImovel.as_view(),login_url='login'), name='excluir-imoveis'),
     path('fotos/<int:pk>/',FotosImoveis.as_view(), name='fotos-imoveis'),
+    path('detalhes/<int:pk>/', login_required(DetalhesImovel.as_view(), login_url='login'), name='detalhes-imoveis'),
 
     path('api/imoveis/', ImovelAPIListar.as_view(), name='api-listar-imoveis'),
     path('api/imoveis/deletar/<int:pk>/', ImovelAPIDeletar.as_view(), name='api-deletar-imovel'),

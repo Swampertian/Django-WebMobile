@@ -12,19 +12,21 @@
   <ion-grid *ngIf="!carregando && !erro">
     <ion-row>
       <ion-col size="12" size-md="6" *ngFor="let imovel of imoveis">
-
         <ion-card>
-
           <img [src]="imovel.imagem" *ngIf="imovel.imagem" />
           <img src="assets/no-image.png" *ngIf="!imovel.imagem" />
-
           <ion-card-header>
             <ion-card-title>{{ imovel.titulo }}</ion-card-title>
-            <ion-card-subtitle>{{ imovel.cidade }}</ion-card-subtitle>
+            <ion-card-subtitle>{{ imovel.cidade }}, {{ imovel.estado }}</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content>
-            <p><strong>Preço:</strong> {{ imovel.preco }}</p>
+            <p><strong>Preço:</strong> {{ imovel.preco | currency:'BRL':'symbol-narrow':'1.0-0' }}</p>
+            <div class="mini-details">
+              <span *ngIf="imovel.quartos">🛏️ {{ imovel.quartos }}</span>
+              <span *ngIf="imovel.banheiros">🛁 {{ imovel.banheiros }}</span>
+              <span *ngIf="imovel.area">📐 {{ imovel.area }} m²</span>
+            </div>
           </ion-card-content>
 
         </ion-card>
@@ -32,5 +34,100 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar">
+    <div class="bar-inner">
+      <ion-button fill="clear" class="bar-btn" (click)="buscarImoveis()">
+        <ion-icon name="refresh"></ion-icon>
+        <span>Atualizar</span>
+      </ion-button>
+      <div class="center-action">
+        <ion-button shape="round" class="post-btn" (click)="abrirAdicionar()">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </div>
+      <ion-button fill="clear" class="bar-btn" (click)="fecharAdicionar()" [disabled]="!addOpen">
+        <ion-icon name="close"></ion-icon>
+        <span>Fechar</span>
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- MODAL ADICIONAR IMÓVEL -->
+  <ion-modal [isOpen]="addOpen" (didDismiss)="fecharAdicionar()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Novo Imóvel</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="fecharAdicionar()">Fechar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <form [formGroup]="addForm" class="form-container">
+          <ion-list lines="full">
+            <ion-item>
+              <ion-label position="stacked">Título</ion-label>
+              <ion-input formControlName="titulo" placeholder="Ex: Casa ampla"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Tipo</ion-label>
+              <ion-select formControlName="tipo" interface="popover" placeholder="Selecione">
+                <ion-select-option [value]="1">Casa</ion-select-option>
+                <ion-select-option [value]="2">Apartamento</ion-select-option>
+                <ion-select-option [value]="3">Terreno</ion-select-option>
+                <ion-select-option [value]="4">Comercial</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Preço (R$)</ion-label>
+              <ion-input type="number" formControlName="preco" placeholder="0,00"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Endereço</ion-label>
+              <ion-input formControlName="endereco" placeholder="Rua, número, bairro"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Cidade</ion-label>
+              <ion-input formControlName="cidade" placeholder="Cidade"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Estado</ion-label>
+              <ion-input formControlName="estado" placeholder="Estado"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Quartos</ion-label>
+              <ion-input type="number" formControlName="quartos" placeholder="Opcional"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Banheiros</ion-label>
+              <ion-input type="number" formControlName="banheiros" placeholder="Opcional"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Área (m²)</ion-label>
+              <ion-input type="number" formControlName="area" placeholder="Opcional"></ion-input>
+            </ion-item>
+          </ion-list>
+
+          <div class="actions">
+            <ion-button expand="block" [disabled]="enviando || addForm.invalid" (click)="salvarImovel()">
+              <ion-spinner *ngIf="enviando" name="lines-small"></ion-spinner>
+              <span *ngIf="!enviando">Salvar</span>
+            </ion-button>
+          </div>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-toast
+    [isOpen]="sucesso"
+    message="Imóvel criado com sucesso!"
+    duration="2000"
+    color="success"
+    (didDismiss)="sucesso = false">
+  </ion-toast>
 
 </ion-content>
