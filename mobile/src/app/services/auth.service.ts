@@ -8,7 +8,7 @@ import { AuthResponse } from '../interfaces/auth';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `http://localhost:8000/api/auth/`;
+  private apiUrl = `http://127.0.0.1:8000/api/auth/`;
 
   private http = inject(HttpClient);
 

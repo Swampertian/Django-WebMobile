@@ -1,0 +1,8 @@
+<!-- Placeholder SVG para imóveis sem imagem -->
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="60" height="60" rx="8" fill="#f0f0f0"/>
+  <path d="M20 35V40H40V35L30 25L20 35Z" fill="#d0d0d0"/>
+  <rect x="22" y="37" width="3" height="3" fill="#b0b0b0"/>
+  <rect x="35" y="37" width="3" height="3" fill="#b0b0b0"/>
+  <path d="M15 30L30 15L45 30H40L30 20L20 30H15Z" fill="#c0c0c0"/>
+</svg>

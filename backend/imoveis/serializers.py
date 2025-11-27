@@ -13,14 +13,12 @@ class ImovelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Imoveis
-        fields = ['id', 'titulo', 'tipo', 'preco', 'cidade', 'estado', 'imagem']
+        fields = ['id', 'titulo', 'tipo', 'preco', 'cidade', 'estado', 'imagem','banheiros','quartos','area','cep']
 
     def titulo(self, obj):
         return obj.titulo
-    
     def tipo(self, obj):
         return obj.tipo
-    
     def cidade(self,obj):
         return obj.cidade
     def preco(self,obj):

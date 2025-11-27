@@ -1,0 +1,136 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Dashboard</ion-title>
+    <ion-button fill="clear" slot="end" (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="dashboard-dark">
+  <section class="top-section">
+    <div>
+      <h1>Olá, {{ currentUser?.nome || 'Usuário' }}</h1>
+      <p class="subtitle">Resumo geral do portfólio imobiliário</p>
+    </div>
+    <div class="big-number">
+      <ion-icon name="business-outline"></ion-icon>
+      <span>{{ totalImoveis }} imóveis</span>
+    </div>
+  </section>
+
+  <!-- KPIs PRINCIPAIS EM LINHA -->
+  <section class="kpis-section">
+
+    <div class="kpi-box">
+      <span class="kpi-label">Valor Total</span>
+      <span class="kpi-value">{{ formatarMoeda(valorTotalPortfolio) }}</span>
+    </div>
+
+    <div class="kpi-box">
+      <span class="kpi-label">Preço Médio</span>
+      <span class="kpi-value">{{ formatarMoeda(precoMedio) }}</span>
+    </div>
+
+  </section>
+
+  <ion-divider></ion-divider>
+
+  <!-- DISTRIBUIÇÕES -->
+  <section class="data-section">
+    <h2>Distribuições</h2>
+
+    <div class="data-list">
+      <h3>Por Tipo</h3>
+      <div *ngFor="let tipo of distribucaoPorTipo | keyvalue" class="line-item">
+        <span>{{ getTipoLabel(+tipo.key) }}</span>
+        <span class="line-value">{{ tipo.value }}</span>
+      </div>
+
+      <h3>Cidades</h3>
+      <div *ngFor="let cidade of distribucaoPorCidade | keyvalue" class="line-item">
+        <span>{{ cidade.key }}</span>
+        <span class="line-value">{{ cidade.value }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTREMOS -->
+  <section class="data-section" *ngIf="imovelMaisCaro && imovelMaisBarato">
+    <h2>Extremos do Portfólio</h2>
+
+    <div class="extreme-item">
+      <h4>{{ imovelMaisCaro.titulo }}</h4>
+      <span class="highlight">{{ formatarMoeda(imovelMaisCaro.preco) }}</span>
+      <div class="location">
+        <ion-icon name="location-outline"></ion-icon>
+        <span>{{ imovelMaisCaro.cidade }}, {{ imovelMaisCaro.estado }}</span>
+      </div>
+      <p class="text-muted">Imóvel mais caro</p>
+    </div>
+
+    <div class="extreme-item">
+      <h4>{{ imovelMaisBarato.titulo }}</h4>
+      <span class="highlight">{{ formatarMoeda(imovelMaisBarato.preco) }}</span>
+      <div class="location">
+        <ion-icon name="location-outline"></ion-icon>
+        <span>{{ imovelMaisBarato.cidade }}, {{ imovelMaisBarato.estado }}</span>
+      </div>
+      <p class="text-muted">Imóvel mais barato</p>
+    </div>
+  </section>
+
+  <!-- RECENTES -->
+  <section class="data-section">
+    <h2>Imóveis Recentes</h2>
+
+    <div *ngIf="isLoading" class="loading-skeleton">
+      <div class="skeleton-card" *ngFor="let _ of [1,2,3]">
+        <ion-skeleton-text animated style="width: 80%; height: 20px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 60%; height: 16px; margin-top: 8px;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 40%; height: 14px; margin-top: 8px;"></ion-skeleton-text>
+      </div>
+    </div>
+
+    <ion-list class="dark-list" *ngIf="!isLoading && imoveisRecentes.length > 0">
+      <ion-item 
+        *ngFor="let imovel of imoveisRecentes"
+        (click)="verDetalhesImovel(imovel.id)"
+        class="dark-item"
+        button
+      >
+        <ion-label>
+          <h3>{{ imovel.titulo }}</h3>
+          <p class="property-price">{{ formatarMoeda(imovel.preco) }}</p>
+          <p class="text-muted">
+            <ion-icon name="location-outline"></ion-icon>
+            {{ imovel.cidade }}, {{ imovel.estado }}
+          </p>
+          <div class="property-details">
+            <ion-chip *ngIf="imovel.quartos">
+              <ion-icon name="bed-outline"></ion-icon>
+              <ion-label>{{ imovel.quartos }}</ion-label>
+            </ion-chip>
+            <ion-chip *ngIf="imovel.banheiros">
+              <ion-icon name="water-outline"></ion-icon>
+              <ion-label>{{ imovel.banheiros }}</ion-label>
+            </ion-chip>
+            <ion-chip>
+              <ion-label>{{ getTipoLabel(imovel.tipo) }}</ion-label>
+            </ion-chip>
+          </div>
+        </ion-label>
+
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+    <div *ngIf="!isLoading && imoveisRecentes.length === 0" class="empty-state">
+      <ion-icon name="home-outline"></ion-icon>
+      <h3>Nenhum imóvel encontrado</h3>
+      <p>Comece adicionando seu primeiro imóvel ao portfólio!</p>
+    </div>
+
+  </section>
+
+</ion-content>
