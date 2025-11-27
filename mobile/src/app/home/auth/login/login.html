@@ -1,0 +1,88 @@
+<ion-content class="login-page" [fullscreen]="true">
+  <div class="login-overlay"></div>
+
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="logo-area">
+        <div class="logo-circle">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+        </div>
+        <h1 class="title">Bem-vindo de volta</h1>
+        <p class="subtitle">Entre para acessar o painel de gerenciamento</p>
+      </div>
+
+      <!-- Mensagens de feedback -->
+      <div class="messages" *ngIf="messages.length">
+        <div
+          class="message"
+          *ngFor="let msg of messages"
+          [ngClass]="msg.type"
+        >
+          {{ msg.text }}
+        </div>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Usuário -->
+        <ion-item
+          fill="outline"
+          class="form-item"
+          [class.invalid]="isInvalid('username')"
+        >
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-input
+            type="text"
+            formControlName="username"
+            label="Usuário"
+            labelPlacement="floating"
+            placeholder="Digite seu usuário"
+            autocomplete="username"
+          ></ion-input>
+        </ion-item>
+        <div class="error-message" *ngIf="isInvalid('username')">
+          Informe o nome de usuário.
+        </div>
+
+        <!-- Senha -->
+        <ion-item
+          fill="outline"
+          class="form-item"
+          [class.invalid]="isInvalid('password')"
+        >
+          <ion-icon name="key-outline" slot="start"></ion-icon>
+          <ion-input
+            type="password"
+            formControlName="password"
+            label="Senha"
+            labelPlacement="floating"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+          ></ion-input>
+        </ion-item>
+        <div class="error-message" *ngIf="isInvalid('password')">
+          Informe sua senha.
+        </div>
+
+        <!-- Ações extras (opcional) -->
+        <div class="extra-actions">
+          <a class="forgot-password">Esqueci minha senha</a>
+        </div>
+
+        <!-- Botão -->
+        <ion-button
+          type="submit"
+          expand="block"
+          class="login-button"
+          [disabled]="isLoading || loginForm.invalid"
+        >
+          <ng-container *ngIf="!isLoading">Entrar</ng-container>
+          <ng-container *ngIf="isLoading">
+            <ion-spinner name="crescent"></ion-spinner>
+            <span class="loading-text">Entrando...</span>
+          </ng-container>
+        </ion-button>
+      </form>
+
+    </div>
+  </div>
+</ion-content>

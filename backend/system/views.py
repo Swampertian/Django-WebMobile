@@ -2,7 +2,7 @@ from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
@@ -50,6 +50,7 @@ class Logout(View):
         logout(request)
         return redirect("login")
     
+@method_decorator(csrf_exempt, name='dispatch')
 class LoginAPI(ObtainAuthToken):
     
     def post(self,request,*args,**kwargs):
