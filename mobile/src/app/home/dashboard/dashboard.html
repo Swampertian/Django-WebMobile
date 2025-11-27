@@ -7,14 +7,11 @@
   <div *ngIf="erro" class="error-container">
     <p>Erro ao carregar imóveis.</p>
   </div>
-
-  <!-- LISTA DE IMÓVEIS -->
   <ion-grid *ngIf="!carregando && !erro">
     <ion-row>
       <ion-col size="12" size-md="6" *ngFor="let imovel of imoveis">
         <ion-card>
           <img [src]="imovel.imagem" *ngIf="imovel.imagem" />
-          <img src="assets/no-image.png" *ngIf="!imovel.imagem" />
           <ion-card-header>
             <ion-card-title>{{ imovel.titulo }}</ion-card-title>
             <ion-card-subtitle>{{ imovel.cidade }}, {{ imovel.estado }}</ion-card-subtitle>
@@ -52,7 +49,7 @@
         <ion-icon name="close"></ion-icon>
         <span>Fechar</span>
       </ion-button>
-      <ion-button *ngIf="!addOpen" fill="clear" class="bar-btn" (click)="mostrarMetricas()">
+      <ion-button *ngIf="!addOpen" fill="clear" class="bar-btn" (click)="irParaMetricas()">
         <ion-icon name="stats-chart"></ion-icon>
         <span>Métricas</span>
       </ion-button>

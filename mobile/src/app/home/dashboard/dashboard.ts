@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,inject } from '@angular/core';
 import { ImoveisService } from '../../services/imoveis.service';
 import { imovel } from '../../interfaces/imoveis';
+import { Router } from '@angular/router';
 import { 
   IonContent, 
   IonSpinner, 
@@ -74,16 +75,14 @@ import {
   styleUrls: ['./dashboard.scss'],
 })
 export class Dashboard implements OnInit {
-
+  private router = inject(Router);
   imoveis: imovel[] = [];
   carregando = true;
   erro = false;
-  // Modal/Formulário de novo imóvel
   addOpen = false;
   addForm!: FormGroup;
   enviando = false;
   sucesso = false;
-  // Toast de métricas
   metricsOpen = false;
   metricsText = '';
 
@@ -162,7 +161,6 @@ export class Dashboard implements OnInit {
     });
   }
 
-  // Calcula e exibe métricas de preço dos imóveis
   mostrarMetricas() {
     if (!this.imoveis || this.imoveis.length === 0) {
       this.metricsText = 'Sem imóveis para calcular métricas.';
@@ -186,5 +184,7 @@ export class Dashboard implements OnInit {
     this.metricsText = `Qtd: ${qtd} • Min: ${fmt(min)} • Méd: ${fmt(media)} • Máx: ${fmt(max)}`;
     this.metricsOpen = true;
   }
-
+  irParaMetricas() {
+    this.router.navigate(['/metrics']);
+  }
 }
