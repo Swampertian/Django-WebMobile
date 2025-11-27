@@ -1,0 +1,210 @@
+.login-page {
+  --background: linear-gradient(135deg, #020617, #0f172a, #1e293b);
+  position: relative;
+
+  .login-overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0.25;
+    background-image: radial-gradient(circle at top left, #38bdf8 0, transparent 55%),
+      radial-gradient(circle at bottom right, #a855f7 0, transparent 55%);
+    pointer-events: none;
+  }
+
+  .login-wrapper {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(15, 23, 42, 0.95);
+    border-radius: 20px;
+    padding: 28px 24px 20px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    backdrop-filter: blur(18px);
+    color: #e5e7eb;
+
+    @media (min-width: 480px) {
+      padding: 32px 28px 24px;
+    }
+  }
+
+  .logo-area {
+    text-align: center;
+    margin-bottom: 24px;
+
+    .logo-circle {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0, #38bdf8, #0f172a);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+
+      ion-icon {
+        font-size: 28px;
+        color: #e5e7eb;
+      }
+    }
+
+    .title {
+      font-size: 1.4rem;
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+  }
+
+  .messages {
+    margin-bottom: 12px;
+
+    .message {
+      font-size: 0.85rem;
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid transparent;
+
+      &.error {
+        background: rgba(248, 113, 113, 0.08);
+        color: #fecaca;
+        border-color: rgba(248, 113, 113, 0.4);
+      }
+
+      &.success {
+        background: rgba(52, 211, 153, 0.09);
+        color: #bbf7d0;
+        border-color: rgba(52, 211, 153, 0.4);
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-item {
+    --background: rgba(15, 23, 42, 0.85);
+    --border-radius: 12px;
+    --border-width: 1px;
+    --border-color: rgba(148, 163, 184, 0.35);
+    --color: #e5e7eb;
+    --highlight-height: 0;
+    margin-top: 6px;
+
+    ion-icon[slot='start'] {
+      font-size: 20px;
+      color: #9ca3af;
+    }
+
+    ion-input {
+      --padding-start: 4px;
+      --padding-end: 4px;
+      --color: #e5e7eb;
+
+      .label-text,
+      .label-floating {
+        color: #9ca3af;
+      }
+    }
+
+    &.invalid {
+      --border-color: rgba(248, 113, 113, 0.7);
+      animation: shake 0.18s ease-in;
+    }
+  }
+
+  .error-message {
+    font-size: 0.75rem;
+    color: #fecaca;
+    margin: 2px 4px 4px 4px;
+  }
+
+  .extra-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+    margin-bottom: 10px;
+
+    .forgot-password {
+      font-size: 0.8rem;
+      color: #38bdf8;
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .login-button {
+    margin-top: 6px;
+    height: 46px;
+    --border-radius: 999px;
+    --background: linear-gradient(135deg, #2563eb, #4f46e5);
+    --box-shadow: 0 10px 30px rgba(37, 99, 235, 0.45);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: none;
+
+    ion-spinner {
+      margin-right: 8px;
+      width: 18px;
+      height: 18px;
+    }
+
+    .loading-text {
+      font-size: 0.9rem;
+    }
+
+    &.button-disabled {
+      --background: rgba(30, 64, 175, 0.65);
+      --box-shadow: none;
+    }
+  }
+
+  .footer-text {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
+    }
+    30% {
+      transform: translateX(-3px);
+    }
+    60% {
+      transform: translateX(3px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
