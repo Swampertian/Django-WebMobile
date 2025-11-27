@@ -114,7 +114,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Pasta onde o collectstatic irá colocar os arquivos
+STATIC_ROOT = BASE_DIR / 'staticfiles'  
 
 # Media files (uploads)
 MEDIA_URL = '/media/'
@@ -122,25 +122,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_URL = '/'
 
-# CSRF Configuration
+
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
 CSRF_COOKIE_SECURE = False  # True apenas em HTTPS
 CSRF_COOKIE_HTTPONLY = False
 CSRF_USE_SESSIONS = False
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8100",
-    "http://127.0.0.1:8100",
-    "http://localhost:4200",
-    "http://127.0.0.1:4200",
-]
-
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
     'accept',

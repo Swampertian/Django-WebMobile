@@ -16,6 +16,12 @@ class ListarImoveis(ListView,LoginRequiredMixin):
     context_object_name = 'imoveis'
     paginate_by = 9  # 9 imóveis por página (3x3 grid)
 
+class DetalhesImovel(LoginRequiredMixin, View):
+     def get(self,request,pk):
+        context={}
+        imovel = Imoveis.objects.get(id=pk)
+        context['imovel'] = imovel
+        return render(request,'imoveis/detalhes.html',context)
 class CadastrarImovel(LoginRequiredMixin, CreateView):
     model = Imoveis
     form_class = ImoveisForm
