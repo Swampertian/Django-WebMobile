@@ -2,3 +2,87 @@
 {% load static %}
 
 {% block content %}
+<section class="text-center text-lg-start">
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card">
+					<div class="card-header">
+						<h3 class="text-center mb-0">Cadastrar Funcionário</h3>
+					</div>
+					<div class="card-body py-5 px-md-5">
+
+						<form method="post">
+							{% csrf_token %}
+
+							{% if form.errors %}
+								<div class="alert alert-danger" role="alert">
+									<strong>Erro no formulário:</strong>
+									{{ form.errors }}
+								</div>
+							{% endif %}
+
+							<!-- Nome -->
+							<div class="form-outline mb-4">
+								{{ form.nome }}
+								<label class="form-label" for="{{ form.nome.id_for_label }}">*Nome</label>
+							</div>
+
+							<!-- Imóvel -->
+							<div class="form-outline mb-4">
+								{{ form.imovel }}
+								<label class="form-label" for="{{ form.imovel.id_for_label }}">*Imóvel</label>
+							</div>
+
+							<!-- Cargo -->
+							<div class="form-outline mb-4">
+								{{ form.cargo }}
+								<label class="form-label" for="{{ form.cargo.id_for_label }}">*Cargo</label>
+							</div>
+
+							<!-- Salário e Data -->
+							<div class="row mb-2">
+								<div class="col-md-6">
+									<div class="form-outline mb-4">
+										{{ form.salario }}
+										<label class="form-label" for="{{ form.salario.id_for_label }}">*Salário (R$)</label>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-outline mb-4">
+										{{ form.data_contratacao }}
+										<label class="form-label" for="{{ form.data_contratacao.id_for_label }}">Data de contratação</label>
+									</div>
+								</div>
+							</div>
+
+							<!-- Email -->
+							<div class="form-outline mb-4">
+								{{ form.email }}
+								<label class="form-label" for="{{ form.email.id_for_label }}">*E-mail</label>
+							</div>
+
+							<!-- Telefone -->
+							<div class="form-outline mb-4">
+								{{ form.telefone }}
+								<label class="form-label" for="{{ form.telefone.id_for_label }}">Telefone</label>
+							</div>
+
+							<!-- Botões -->
+							<div class="row mb-4">
+								<div class="col-6">
+									<a href="{% url 'home' %}" class="btn btn-secondary btn-block">Voltar</a>
+								</div>
+								<div class="col-6">
+									<button type="submit" class="btn btn-primary btn-block">Cadastrar Funcionário</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}

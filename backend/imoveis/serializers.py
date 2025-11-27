@@ -3,27 +3,18 @@ from imoveis.models import Imoveis
 
 
 class ImovelSerializer(serializers.ModelSerializer):
-
-    titulo = serializers.SerializerMethodField()
-    tipo = serializers.SerializerMethodField()
-    preco = serializers.SerializerMethodField()
-    cidade = serializers.SerializerMethodField()
-    estado = serializers.SerializerMethodField()
-    imagem = serializers.ImageField()
+    imagem = serializers.SerializerMethodField()
 
     class Meta:
         model = Imoveis
-        fields = ['id', 'titulo', 'tipo', 'preco', 'cidade', 'estado', 'imagem','banheiros','quartos','area','cep']
+        fields = [
+            'id', 'titulo', 'tipo', 'preco', 'cidade', 'estado',
+            'imagem', 'banheiros', 'quartos', 'area', 'cep'
+        ]
 
-    def titulo(self, obj):
-        return obj.titulo
-    def tipo(self, obj):
-        return obj.tipo
-    def cidade(self,obj):
-        return obj.cidade
-    def preco(self,obj):
-        return obj.preco
-    def estado(self,obj):
-        return obj.estado
-    def imagem(self,obj):
-        return obj.imagem
+    def get_imagem(self, obj):
+        request = self.context.get('request')
+        if not obj.imagem:
+            return None
+        url = obj.imagem.url
+        return request.build_absolute_uri(url) if request else url

@@ -34,9 +34,10 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { addIcons } from 'ionicons';
 
 import { 
-    refresh, 
-    add, 
-    close 
+  refresh, 
+  add, 
+  close,
+  statsChart
 } from 'ionicons/icons';
 @Component({
   selector: 'app-dashboard',
@@ -82,12 +83,16 @@ export class Dashboard implements OnInit {
   addForm!: FormGroup;
   enviando = false;
   sucesso = false;
+  // Toast de métricas
+  metricsOpen = false;
+  metricsText = '';
 
   constructor(private imoveisService: ImoveisService, private fb: FormBuilder) {
     addIcons({
       'refresh': refresh,
       'add': add,
-      'close': close
+      'close': close,
+      'stats-chart': statsChart
     });
   }
 
@@ -155,6 +160,31 @@ export class Dashboard implements OnInit {
         this.enviando = false;
       }
     });
+  }
+
+  // Calcula e exibe métricas de preço dos imóveis
+  mostrarMetricas() {
+    if (!this.imoveis || this.imoveis.length === 0) {
+      this.metricsText = 'Sem imóveis para calcular métricas.';
+      this.metricsOpen = true;
+      return;
+    }
+    const precos = this.imoveis
+      .map(i => Number(i.preco))
+      .filter(v => !isNaN(v));
+    if (precos.length === 0) {
+      this.metricsText = 'Sem preços válidos.';
+      this.metricsOpen = true;
+      return;
+    }
+    const qtd = precos.length;
+    const min = Math.min(...precos);
+    const max = Math.max(...precos);
+    const soma = precos.reduce((a, b) => a + b, 0);
+    const media = soma / qtd;
+    const fmt = (v: number) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(v);
+    this.metricsText = `Qtd: ${qtd} • Min: ${fmt(min)} • Méd: ${fmt(media)} • Máx: ${fmt(max)}`;
+    this.metricsOpen = true;
   }
 
 }

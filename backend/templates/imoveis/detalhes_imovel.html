@@ -112,6 +112,28 @@
 		</div>
 	</div>
 
+	<!-- Funcionários vinculados -->
+	<div class="card shadow-sm mt-4">
+		<div class="card-header d-flex align-items-center gap-2">
+			<i class="fas fa-users"></i>
+			<h5 class="m-0">Funcionários</h5>
+		</div>
+		<div class="card-body p-0">
+			<ul class="list-group list-group-flush">
+				{% for f in imovel.funcionarios.all %}
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					<span class="fw-semibold text-primary">{{ f.get_cargo_display }}</span>
+					<a class="text-decoration-none" href="mailto:{{ f.email }}">
+						<i class="fas fa-envelope"></i> {{ f.email }}
+					</a>
+				</li>
+				{% empty %}
+				<li class="list-group-item text-muted">Nenhum funcionário vinculado a este imóvel.</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
 	<div class="mt-4 text-center">
 		<a href="{% url 'home' %}" class="btn btn-secondary">
 			<i class="fas fa-arrow-left"></i> Voltar para a lista

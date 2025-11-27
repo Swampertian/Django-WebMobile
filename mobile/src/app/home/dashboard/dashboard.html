@@ -47,9 +47,14 @@
           <ion-icon name="add"></ion-icon>
         </ion-button>
       </div>
-      <ion-button fill="clear" class="bar-btn" (click)="fecharAdicionar()" [disabled]="!addOpen">
+      <!-- Alterna entre Fechar (quando modal aberto) e Métricas -->
+      <ion-button *ngIf="addOpen" fill="clear" class="bar-btn" (click)="fecharAdicionar()">
         <ion-icon name="close"></ion-icon>
         <span>Fechar</span>
+      </ion-button>
+      <ion-button *ngIf="!addOpen" fill="clear" class="bar-btn" (click)="mostrarMetricas()">
+        <ion-icon name="stats-chart"></ion-icon>
+        <span>Métricas</span>
       </ion-button>
     </div>
   </div>
@@ -128,6 +133,14 @@
     duration="2000"
     color="success"
     (didDismiss)="sucesso = false">
+  </ion-toast>
+
+  <ion-toast
+    [isOpen]="metricsOpen"
+    [message]="metricsText"
+    duration="2500"
+    color="tertiary"
+    (didDismiss)="metricsOpen = false">
   </ion-toast>
 
 </ion-content>
