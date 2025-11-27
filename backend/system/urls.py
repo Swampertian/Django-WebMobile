@@ -10,6 +10,7 @@ urlpatterns = [
     path('',Login.as_view(), name='login'),
     path('logout/',Logout.as_view(), name='logout'),
     path('home/', include('imoveis.urls')),
+    path('funcionarios/', include('funcionarios.urls')),
     path('api/auth/',LoginAPI.as_view(), name='api_login'),
 ]
 

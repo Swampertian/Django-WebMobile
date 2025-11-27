@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block Titulo %}
-    Home - Imóveis
+    Home - Dashboard
 {% endblock %}
 
 {% block content %}
@@ -20,6 +20,9 @@
                     </a>
                     <a href="{% url 'logout' %}" class="btn btn-outline-danger">
                         <i class="fas fa-sign-out-alt"></i> Sair
+                    </a>
+                    <a href="{% url 'cadastrar-funcionarios' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-user-plus"></i> Cadastrar Funcionário
                     </a>
                 </div>
             </div>
@@ -195,7 +198,6 @@
         {% endif %}
     </div>
 
-    <!-- Paginação (se necessário) -->
     {% if is_paginated %}
     <div class="row mt-4">
         <div class="col-12">
@@ -231,7 +233,6 @@
     {% endif %}
 </div>
 
-<!-- CSS personalizado -->
 <style>
 .card {
     transition: transform 0.2s ease-in-out;

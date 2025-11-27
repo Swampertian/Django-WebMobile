@@ -1,13 +1,74 @@
 import { Component, OnInit } from '@angular/core';
 import { ImoveisService } from '../../services/imoveis.service';
 import { imovel } from '../../interfaces/imoveis';
-import { IonicModule } from '@ionic/angular';
-import { CommonModule, NgIf, NgFor } from '@angular/common';
+import { 
+  IonContent, 
+  IonSpinner, 
+  IonGrid, 
+  IonRow, 
+  IonCol, 
+  IonCard, 
+  IonCardHeader, 
+  IonCardTitle, 
+  IonCardSubtitle, 
+  IonCardContent, 
+  IonButton, 
+  IonIcon, // Importação do componente de ícone
+  IonModal, 
+  IonHeader, 
+  IonToolbar, 
+  IonTitle, 
+  IonButtons, 
+  IonToast, 
+  IonList, 
+  IonItem, 
+  IonLabel, 
+  IonInput, 
+  IonSelect, 
+  IonSelectOption 
+} from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
+import { addIcons } from 'ionicons';
+
+import { 
+    refresh, 
+    add, 
+    close 
+} from 'ionicons/icons';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [IonicModule, CommonModule, NgIf, NgFor, ReactiveFormsModule],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule, 
+    IonContent,
+    IonSpinner,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardContent,
+    IonButton,
+    IonIcon,
+    IonModal,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonToast,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonSelect,
+    IonSelectOption
+  ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
 })
@@ -22,7 +83,13 @@ export class Dashboard implements OnInit {
   enviando = false;
   sucesso = false;
 
-  constructor(private imoveisService: ImoveisService, private fb: FormBuilder) {}
+  constructor(private imoveisService: ImoveisService, private fb: FormBuilder) {
+    addIcons({
+      'refresh': refresh,
+      'add': add,
+      'close': close
+    });
+  }
 
   ngOnInit() {
     this.criarFormulario();

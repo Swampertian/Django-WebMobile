@@ -16,6 +16,12 @@ import {
   IonButton,
   IonSpinner,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { 
+    lockClosedOutline, 
+    personOutline, 
+    keyOutline 
+} from 'ionicons/icons';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -45,6 +51,11 @@ export class Login {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
+    });
+    addIcons({
+      'lock-closed-outline': lockClosedOutline,
+      'person-outline': personOutline,
+      'key-outline': keyOutline,
     });
   }
 
