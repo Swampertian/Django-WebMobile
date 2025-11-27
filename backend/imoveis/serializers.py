@@ -15,14 +15,15 @@ class ImovelSerializer(serializers.ModelSerializer):
         model = Imoveis
         fields = ['id', 'titulo', 'tipo', 'preco', 'cidade', 'estado', 'imagem']
 
-    def get_titulo(self, obj):
+    def titulo(self, obj):
         return obj.titulo
     
-    def get_tipo(self, obj):
-        return obj.get_tipo
+    def tipo(self, obj):
+        return obj.tipo
     
-    def get_cidade(self,obj):
+    def cidade(self,obj):
         return obj.cidade
-    
-    def get_estado(self,obj):
+    def preco(self,obj):
+        return obj.preco
+    def estado(self,obj):
         return obj.estado

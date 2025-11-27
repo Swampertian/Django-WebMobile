@@ -68,7 +68,7 @@ export class Login {
         ];
         console.log('Tokens recebidos:', res);
 
-        setTimeout(() => this.router.navigate(['/managment']), 800);
+        setTimeout(() => this.router.navigate(['/dashboard']), 800);
       },
       error: (err) => {
         this.isLoading = false;
